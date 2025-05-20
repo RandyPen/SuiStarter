@@ -59,7 +59,7 @@ const EProjectNotCanceled: u64 = 18;
 const ETakeAwayNotCompleted: u64 = 19;
 const EInvalidThresholdRatio: u64 = 20;
 const ENotBegin: u64 = 21;
-const EAlreadyBegin: u64 = 22;
+// const EAlreadyBegin: u64 = 22;
 const ENotCanceled: u64 = 23;
 const ENoRemain: u64 = 24;
 
@@ -928,9 +928,11 @@ public fun cancel_project_by_team(
     project_admin_cap: &ProjectAdminCap,
     deploy_record: &mut DeployRecord,
     project_record: &mut ProjectRecord,
+    version: &Version,
     ctx: &TxContext,
 ) {
     check_project_cap(project_record, project_admin_cap);
+    assert!(version.version == VERSION, EVersionMismatch);
     cancel_project(deploy_record, project_record, ctx);
 }
 
@@ -1228,7 +1230,7 @@ fun cancel_project(
     project_record: &mut ProjectRecord,
     ctx: &TxContext,
 ) {
-    assert!(!project_record.begin, EAlreadyBegin);
+    // assert!(!project_record.begin, EAlreadyBegin);
     project_record.cancel = true;
 
     let project_id = deploy_record.record.remove(project_record.name);
@@ -1300,7 +1302,6 @@ public fun new_project_record_for_testing(
     let total_supply = total_deposit_sui / SUI_BASE * amount_per_sui;
     ProjectRecord {
         id: object::new(ctx),
-        version: VERSION,
         creator: ctx.sender(),
         name: std::ascii::string(name),
         description: std::string::utf8(description),
