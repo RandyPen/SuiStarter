@@ -210,14 +210,14 @@ fun init(otw: SUIFUND, ctx: &mut TxContext) {
         b"alert".to_string(),
     ];
 
-    let mut image_url: vector<u8> = b"";
+    let mut image_url: vector<u8> = b"https://suistarter.app/objectId/";
     image_url.append(b"{id}");
 
-    let mut project_url: vector<u8> = b"";
+    let mut project_url: vector<u8> = b"https://suistarter.app/project/";
     project_url.append(b"{project_id}");
-    let mut market_url: vector<u8> = b"";
+    let mut market_url: vector<u8> = b"https://suistarter.app/market/";
     market_url.append(b"{project_id}");
-    let mut coinswap_url: vector<u8> = b"";
+    let mut coinswap_url: vector<u8> = b"https://suistarter.app/coinswap/";
     coinswap_url.append(b"{project_id}");
     let values = vector[
         b"Supporter Ticket".to_string(),
